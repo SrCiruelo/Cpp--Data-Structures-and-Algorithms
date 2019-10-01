@@ -17,7 +17,7 @@ public:
   LinkedList();
   LinkedList(std::initializer_list<O>);
   ~LinkedList();
-  O& get(std::size_t);
+  O& get(size_t);
   void push_back(O);
   void insert(O);
 };
