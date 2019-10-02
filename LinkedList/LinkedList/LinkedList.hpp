@@ -13,11 +13,15 @@ private:
   Node<O>* last;
   Node<O>* first;
   size_t count;
+  
 public:
   LinkedList();
   LinkedList(std::initializer_list<O>);
   ~LinkedList();
-  O& get(size_t);
+  O& get(std::size_t);
+  O& operator[](size_t i);
+  size_t Count();
   void push_back(O);
-  void insert(O);
+  void insert(O,size_t);
 };
+
