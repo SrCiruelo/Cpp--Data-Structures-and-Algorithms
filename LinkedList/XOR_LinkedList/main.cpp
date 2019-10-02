@@ -3,9 +3,8 @@
 
 template <typename T>
 void print_lst(XOR_LinkedList<T> lst){
-
-  for(int i{0};i<lst.Count();++i){
-    std::cout<<lst.get(i)<<" ";
+  for(size_t i{0};i<lst.Count();++i){
+    std::cout<<lst.get(i)<<"  ";
   }
 };
 
@@ -16,17 +15,8 @@ int main(){
   lst0.push_back(24);
   lst0.push_back(98);
   lst0.push_back(322);
-  std::cout<<lst0.get(4)<<std::endl;
-  std::cout<<lst0.get(0)<<std::endl;
-  std::cout<<lst0.get(1)<<std::endl;
-  std::cout<<lst0.get(2)<<std::endl;
-  std::cout<<lst0.get(3)<<std::endl;
-  std::cout<<lst0.get(4)<<std::endl;
-  std::cout<<lst0.Count()<<std::endl;
+  print_lst(lst0);
   XOR_LinkedList<char> lst1 = {'A','E','@','3'};
-  std::cout<<lst1.get(0)<<std::endl;
-  std::cout<<lst1.get(1)<<std::endl;
-  std::cout<<lst1.get(2)<<std::endl;
-  std::cout<<lst1.get(3)<<std::endl;
+  print_lst(lst1);
   return 0;
 };
