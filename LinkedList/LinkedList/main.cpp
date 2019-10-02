@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinkedList.hpp"
+#include "XOR_LinkedList.hpp"
 
 template <typename T>
 void print_lst(LinkedList<T> lst){
