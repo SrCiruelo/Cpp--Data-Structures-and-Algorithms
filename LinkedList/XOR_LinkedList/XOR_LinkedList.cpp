@@ -10,7 +10,7 @@ template <typename O>
 size_t XOR_LinkedList<O>::Count(){return count;}
 
 template <typename O>
-XOR_LinkedList<O>::Node<O>* XOR_LinkedList<O>::XOR(Node<O>* a,Node<O>* b){
+typename XOR_LinkedList<O>::template Node<O>* XOR_LinkedList<O>::XOR(Node<O>* a,Node<O>* b){
   return (Node<O>*)((uintptr_t)(a) ^ (uintptr_t)(b));
 }
 
@@ -98,10 +98,18 @@ template <typename O>
 XOR_LinkedList<O>::~XOR_LinkedList(){
   Node<O>* pointer0{first};
   Node<O>* pointer1{nullptr};
-  for(size_t i{0};i<Count();++i){
+  size_t i{0};
+  for(;i<2;++i){
     Node<O>* tmp_pointer{pointer0};
     pointer0 = XOR(pointer0->xorptr,pointer1);
     pointer1 = tmp_pointer;
+    std::cout<<(pointer1->val)<<std::endl;
+  }
+  for(;i<Count()-1;++i){
+    Node<O>* tmp_pointer{pointer0};
+    pointer0 = XOR(pointer0->xorptr,pointer1);
+    pointer1 = tmp_pointer;
+    std::cout<<((XOR(pointer0->xorptr,pointer1))->val)<<std::endl;
     delete (XOR(pointer0->xorptr,pointer1));
   }
   delete pointer0;

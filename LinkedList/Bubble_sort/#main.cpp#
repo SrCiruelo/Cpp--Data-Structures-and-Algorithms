@@ -1,0 +1,37 @@
+#include <iostream>
+#include <stdlib.h>
+
+
+void bubble_sort(int* arr,std::size_t size){
+  int* end = arr + size;
+  bool has_swaped{true};
+  while(has_swaped)
+  {
+    has_swaped = false;
+    for(int* it{arr}; it!=end;++it){
+      if(*it>*(it+1))
+      {
+	std::swap(*it,*(it+1));
+	has_swaped = true;
+      }
+    }
+  }
+}
+void print_arr(int* arr,std::size_t arr_size){
+  for(int i{0};i<arr_size;++i){
+    std::cout<<arr[i]<< "  ";
+  }
+  std::cout<<std::endl;y
+		       
+}
+int main(int argv,char** argc){
+  int* arr = new int[argv];
+  for(int i{0};i<argv;++i){
+    arr[i] = atoi(argc[i]) ;
+  }
+  print_arr(arr,argv);
+  std::cout<<"----------"<<std::endl;
+  bubble_sort(arr,argv);
+  print_arr(arr,argv);
+  return 0;
+}
