@@ -1,6 +1,5 @@
 #include "XOR_LinkedList.hpp"
 #include <stdexcept>
-#include <iostream>
 
 
 template <typename O>
@@ -96,21 +95,13 @@ void XOR_LinkedList<O>::insert(O val,size_t index){
 
 template <typename O>
 XOR_LinkedList<O>::~XOR_LinkedList(){
-  Node<O>* pointer0{first};
-  Node<O>* pointer1{nullptr};
-  size_t i{0};
-  for(;i<2;++i){
+  Node<O>* pointer0{first->xorptr};
+  Node<O>* pointer1{first};
+  for(size_t i{0};i<Count()-2;++i){
     Node<O>* tmp_pointer{pointer0};
     pointer0 = XOR(pointer0->xorptr,pointer1);
     pointer1 = tmp_pointer;
-    std::cout<<(pointer1->val)<<std::endl;
-  }
-  for(;i<Count()-1;++i){
-    Node<O>* tmp_pointer{pointer0};
-    pointer0 = XOR(pointer0->xorptr,pointer1);
-    pointer1 = tmp_pointer;
-    std::cout<<((XOR(pointer0->xorptr,pointer1))->val)<<std::endl;
-    delete (XOR(pointer0->xorptr,pointer1));
+    delete (XOR(pointer1->xorptr,pointer0));
   }
   delete pointer0;
   delete pointer1;

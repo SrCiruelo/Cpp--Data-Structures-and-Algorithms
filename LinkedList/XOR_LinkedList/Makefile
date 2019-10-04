@@ -7,5 +7,7 @@ main.o: main.cpp
 XOR_LinkedList.o: XOR_LinkedList.cpp XOR_LinkedList.hpp
 	g++ -std=c++11 -c XOR_LinkedList.cpp -o XOR_LinkedList.o
 
-clean:
+clean_unix:
 	rm *.o
+clean_win:
+	del /S *.o
