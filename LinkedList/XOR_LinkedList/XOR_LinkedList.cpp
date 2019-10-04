@@ -95,6 +95,13 @@ void XOR_LinkedList<O>::insert(O val,size_t index){
 
 template <typename O>
 XOR_LinkedList<O>::~XOR_LinkedList(){
+  if(Count()==0){
+    return;
+  }
+  if(Count()==1){
+    delete first;
+    return;
+  }
   Node<O>* pointer0{first->xorptr};
   Node<O>* pointer1{first};
   for(size_t i{0};i<Count()-2;++i){

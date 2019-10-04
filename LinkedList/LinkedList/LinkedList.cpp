@@ -61,6 +61,11 @@ void LinkedList<O>::insert(O val,size_t index){
   if(index>count-1){
     throw std::out_of_range{"Index greater than count"};
   }
+  if(index==count-1)
+  {
+      push_back(val);
+      return;
+  }
   Node<O>* pointer_0{first};
   for(size_t i{0};i<index;++i){
     pointer_0 = pointer_0->next;

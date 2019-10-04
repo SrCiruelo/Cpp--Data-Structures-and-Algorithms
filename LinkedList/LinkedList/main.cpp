@@ -1,5 +1,5 @@
 #include <iostream>
-#include "XOR_LinkedList.hpp"
+#include "LinkedList.hpp"
 
 template <typename T>
 void print_lst(LinkedList<T> lst){
@@ -19,6 +19,8 @@ int main(){
   std::cout<<lst0.get(4)<<std::endl;
   print_lst(lst0);
   LinkedList<char> lst1 = {'A','E','@','3'};
+  lst1.insert('%',2);
+  lst1.insert('H',4);
   print_lst(lst1);
   return 0;
 };

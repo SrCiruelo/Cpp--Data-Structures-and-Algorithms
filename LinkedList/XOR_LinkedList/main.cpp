@@ -17,6 +17,8 @@ int main(){
   lst0.push_back(98);
   lst0.push_back(322);
   XOR_LinkedList<char> lst1 = {'A','E','@','3'};
+  lst1.insert('H',2);
+  lst1.insert('P',4);
   print_lst(lst0);
   print_lst(lst1);
   return 0;
