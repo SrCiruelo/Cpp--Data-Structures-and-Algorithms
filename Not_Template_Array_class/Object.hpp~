@@ -1,0 +1,6 @@
+class Object{
+public:
+  const  char* to_string() const{};
+  virtual const char* get_class_name() const;
+  virtual bool less_than(const Object*);
+};
