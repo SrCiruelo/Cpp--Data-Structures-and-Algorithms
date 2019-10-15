@@ -1,6 +1,5 @@
 #include "My_Integer.hpp"
 #include <string>
-#include <cstring>
 
 My_Integer::My_Integer():val{0}{}
 
@@ -9,8 +8,7 @@ My_Integer::My_Integer(int val):val{val}{};
 const char* My_Integer::to_string() const{
   //Slow implementation but easy
   std::string s = std::to_string(val);
-  const char* arr = new char[s.size()+1];
-  strcpy(arr,s.c_str());
+  const char* arr = s;
   return arr;
 };
 
