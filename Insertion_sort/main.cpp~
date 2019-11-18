@@ -1,0 +1,16 @@
+#include <iostream>
+
+void insertion_sort(int* arr,std::size_t arr_size){
+int* end = arr + arr_size;
+for(std::size_t it0{arr+1};it0 != end;++it0){
+  std::size_t it1{it0};
+  for(;it1 != arr && *(it1-1) > (*it1);--it1)
+  {
+    std::swap(*it1,*(it1-1));
+  }
+}
+int main(int argv,int argc) {
+
+ 
+return 0;
+}
