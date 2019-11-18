@@ -1,0 +1,16 @@
+#include "Matrix.hpp"
+
+Matrix::Matrix(std::size_t rows,std::size_t cols):rows{rows},cols{cols}
+{
+  arr = new float[rows*cols]();
+}
+Matrix::Matrix(const Matrix& a){
+  rows = a.cols;
+  cols = a.rows;
+  delete[] arr;
+  std::size_t a_size = a.cols * a.rows;
+  arr = new arr[a_size];
+  for(std::size_t i{0};i<a_size;++i){
+    arr[i] = a.arr[i];
+  }
+}
