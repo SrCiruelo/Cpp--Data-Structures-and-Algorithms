@@ -177,6 +177,7 @@ float Matrix::Det(){
   if(cols!=rows){
     throw std::runtime_error("Trying to calculate Determinant from a non square matrix");
   }
+  
   return ;
 }
 //Wasn't neccessary doing this function a friend
