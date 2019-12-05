@@ -1,0 +1,129 @@
+#include "..\LinkedList\LinkedList\LinkedList.hpp"
+#include <functional>
+#include <iostream>
+
+//Knuth hashing used
+constexpr std::size_t hash_number = 2654435769;
+//Needs to be a multiple of 2
+constexpr std::size_t number_of_buckets = 16;
+//p = log2(16)
+constexpr std::size_t p= 4;
+//hash_number should be and odd number between 2^(r-1) and 2^r where r = sqr(number_of_buckets)
+template <typename T>
+class Hash_map{
+  LinkedList<T>* buckets;
+  std::size_t hash(std::size_t);
+  std::size_t knuth(std::size_t,std::size_t);
+public:
+   class iterator{
+     LinkedList<T>::Node* current_ptr;
+     std::size_t current_bucket;
+  public:
+    iterator();
+    iterator(Node*);
+    iterator(const iterator&);
+    iterator& operator=(const iterator&);
+    iterator& operator++();
+    iterator& operator--();
+    iterator operator++(int);
+    iterator operator--(int);
+    bool operator!=(const iterator&);
+    bool operator==(const iterator&);
+    friend bool Hash_map::del(iterator);
+    O& operator*();
+  };
+  Hash_map();
+  Hash_map(const Hash_map&);
+  Hash_map(Hash_map&&);
+  Hash_map& operator=(const Hash_map&);
+  Hash_map& operator=(Hash_map&&);
+  bool add(T val);
+  bool del(T val);
+  bool del(iterator);
+  bool search(T val);
+  //change current search to find and define search with iterators 
+  ~Hash_map();
+};
+
+
+template<typename T>
+Hash_map<T>::Hash_map(){
+  buckets = new LinkedList<T>[number_of_buckets]();
+}
+
+template<typename T>
+Hash_map<T>::Hash_map(const Hash_map& a){
+  buckets = new LinkedList<T>[number_of_buckets]();
+  for(int i=0;i<number_of_buckets;++i){
+    buckets[i] = a.buckets[i];
+  }
+}
+
+template<typename T>
+Hash_map<T>::Hash_map(Hash_map&& a){
+  buckets = a.buckets;
+  a.buckets = nullptr;
+}
+
+template<typename T>
+Hash_map<T>& Hash_map<T>::operator=(const Hash_map& a){
+  buckets = new LinkedList<T>[number_of_buckets]();
+  for(int i=0;i<number_of_buckets;++i){
+    buckets[i] = a.buckets[i];
+  }
+}
+
+template<typename T>
+Hash_map<T>& Hash_map<T>::operator=(Hash_map&& a){
+  buckets = a.buckets;
+  a.buckets = nullptr;
+}
+
+template<typename T>
+std::size_t Hash_map<T>::knuth(std::size_t x,std::size_t p){
+  //This is only for 32 bits number
+  return (x*hash_number)>>(32-p);
+}
+
+template<typename T>
+std::size_t Hash_map<T>::hash(std::size_t val){
+  return knuth(val,p);
+}
+
+template<typename T>
+bool Hash_map<T>::add(T val){
+  std::hash<T> prehash;
+  std::size_t my_hash{hash(prehash(val))};
+  std::cout<<"Hash of: "<< val<<" :: "<<my_hash<<std::endl;
+  typename LinkedList<T>::iterator it = buckets[my_hash].find(val);
+  if(it!= buckets[my_hash].end()){
+    return false;
+  }
+  buckets[my_hash].push_back(val);
+  return true;
+}
+
+template<typename T>
+bool Hash_map<T>::del(T val){
+  std::hash<T> prehash;
+  std::size_t my_hash{hash(prehash(val))};
+  typename LinkedList<T>::iterator it = buckets[my_hash].find(val);
+  if(it  != buckets[my_hash].end()){
+    buckets[my_hash].del(it);
+    return true;
+  }
+  return false;
+}
+
+template<typename T>
+bool Hash_map<T>::search(T val){
+  std::hash<T> prehash;
+  std::size_t my_hash{hash(prehash(val))};
+  typename LinkedList<T>::iterator it = buckets[my_hash].find(val);
+  return it!= buckets[my_hash].end();
+}
+
+template<typename T>
+Hash_map<T>::~Hash_map(){
+  delete[] buckets;
+}
