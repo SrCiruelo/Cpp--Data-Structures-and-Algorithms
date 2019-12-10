@@ -26,8 +26,8 @@ int main(int argv,char** argc){
     std::cout<<(*it)<<std::endl;
     ++it;
   }
-    it = my_map0.begin();
-    for(int i=0;i<2;++i)++it;
+  it--;
+  std::cout<<(*(it++))<<std::endl;
   my_map0.del(it);
   it = my_map0.begin();
   std::cout<<"erased item"<<std::endl;

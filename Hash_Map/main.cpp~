@@ -19,5 +19,23 @@ int main(int argv,char** argc){
   std::cout<<(my_map0.search("que pasa chaval"))<<std::endl;
   std::cout<<(my_map0.search("eh eh eh"))<<std::endl;
   std::cout<<(my_map0.search("UwU"))<<std::endl;
+
+  Hash_map<std::string>::iterator it = my_map0.begin();
+  while(it!=my_map0.end()){
+    std::cout<<"escribiendo  ";
+    std::cout<<(*it)<<std::endl;
+    ++it;
+  }
+    it = my_map0.begin();
+    for(int i=0;i<2;++i)++it;
+  my_map0.del(it);
+  it = my_map0.begin();
+  std::cout<<"erased item"<<std::endl;
+  while(it!=my_map0.end()){
+    std::cout<<"escribiendo  ";
+    std::cout<<(*it)<<std::endl;
+    ++it;
+  }
+  std::cout<<"Finished without problem"<<std::endl;
   return 0;
 }

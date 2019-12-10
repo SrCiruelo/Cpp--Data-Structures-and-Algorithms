@@ -2,6 +2,7 @@
 #include <functional>
 #include <iostream>
 
+constexpr std::size_t SIZE_T_SIZE = sizeof(std::size_t);
 //Knuth hashing used
 constexpr std::size_t hash_number = 2654435769;
 //Needs to be a multiple of 2
@@ -193,13 +194,58 @@ typename Hash_map<T>::iterator& Hash_map<T>::iterator::operator++(){
 template<typename T>
 typename Hash_map<T>::iterator& Hash_map<T>::iterator::operator--(){
   //NOT IMPLEMENTED
+    typename LinkedList<T>::iterator tmp_it = this->current_it;
+  --tmp_it;
+  if(tmp_it==buckets[current_bucket].begin()){
+    //Find next bucket and last bucket
+    std::size_t i{current_bucket-1};
+    std::size_t next_non_empty_bucket{current_bucket};
+    for(;i!=SIZE_MAX &&
+	  buckets[i].Count()==0;
+	--i);
+    if(i!=SIZE_MAX)next_non_empty_bucket = i;  
+    std::size_t first_bucket{next_non_empty_bucket};
+    for(std::size_t i{next_non_empty_bucket-1};i!=SIZE_MAX;--i){
+      if(buckets[i].Count()!=0)first_bucket=i;
+    }
+    if(current_bucket==first_bucket)current_it = buckets[first_bucket].begin();
+    else{
+      current_bucket = next_non_empty_bucket;
+      current_it = buckets[current_bucket].end();
+    }
+  }
+  else{
+    --current_it;
+  }
   return *this;
 }
 
 template<typename T>
 typename Hash_map<T>::iterator Hash_map<T>::iterator::operator++(int){
   typename Hash_map<T>::iterator tmp(*this);
-  ///NOT IMPLEMENTED
+  typename LinkedList<T>::iterator tmp_it = this->current_it;
+  ++tmp_it;
+  if(tmp_it==buckets[current_bucket].end()){
+    //Find next bucket and last bucket
+    std::size_t i{current_bucket+1};
+    std::size_t next_non_empty_bucket{current_bucket};
+    for(;i<number_of_buckets &&
+	  buckets[i].Count()==0;
+	++i);
+    if(i!=number_of_buckets)next_non_empty_bucket = i;  
+    std::size_t last_bucket{next_non_empty_bucket};
+    for(std::size_t i{next_non_empty_bucket+1};i<number_of_buckets;++i){
+      if(buckets[i].Count()!=0)last_bucket=i;
+    }
+    if(current_bucket==last_bucket)current_it = buckets[last_bucket].end();
+    else{
+      current_bucket = next_non_empty_bucket;
+      current_it = buckets[current_bucket].begin();
+    }
+  }
+  else{
+    ++current_it;
+  }
   return tmp;
 }
 
@@ -207,7 +253,29 @@ typename Hash_map<T>::iterator Hash_map<T>::iterator::operator++(int){
 template<typename T>
 typename Hash_map<T>::iterator Hash_map<T>::iterator::operator--(int){
   typename Hash_map<T>::iterator tmp(*this);
-  //NOT IMPLEMENTED
+   typename LinkedList<T>::iterator tmp_it = this->current_it;
+  --tmp_it;
+  if(tmp_it==buckets[current_bucket].begin()){
+    //Find next bucket and last bucket
+    std::size_t i{current_bucket-1};
+    std::size_t next_non_empty_bucket{current_bucket};
+    for(;i!=SIZE_MAX &&
+	  buckets[i].Count()==0;
+	--i);
+    if(i!=SIZE_MAX)next_non_empty_bucket = i;  
+    std::size_t first_bucket{next_non_empty_bucket};
+    for(std::size_t i{next_non_empty_bucket-1};i!=SIZE_MAX;--i){
+      if(buckets[i].Count()!=0)first_bucket=i;
+    }
+    if(current_bucket==first_bucket)current_it = buckets[first_bucket].begin();
+    else{
+      current_bucket = next_non_empty_bucket;
+      current_it = buckets[current_bucket].end();
+    }
+  }
+  else{
+    --current_it;
+  }
   return tmp;
 }
 template<typename T>
